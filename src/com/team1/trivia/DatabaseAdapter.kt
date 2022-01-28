@@ -1,6 +1,7 @@
 package com.team1.trivia
 
 import jdk.incubator.jpackage.internal.Log
+import sun.jvm.hotspot.HelloWorld.e
 import java.io.*
 import javax.naming.Context
 interface CursorFactory
@@ -30,15 +31,15 @@ class DatabaseAdapter : SQLiteOpenHelper {
 
     internal constructor(c: Context?) : super(c, DATABASE_NAME, null, 0) {
         context = c
-        Log.i(TAG, "Create or Open database : " + DATABASE_NAME)
+        Log.info("Create or Open database : $DATABASE_NAME")
     }
 
     fun onCreate(db: SQLiteDatabase?) {
-        Log.d(TAG, "onCreate : nothing to do")
+        Log.info("onCreate : nothing to do")
     }
 
     fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        Log.d(TAG, "onUpgrade : nothing to do")
+        Log.info("onUpgrade : nothing to do")
     }
 
     /***
@@ -90,19 +91,19 @@ class DatabaseAdapter : SQLiteOpenHelper {
                     try {
                         copyDataBase(context, databaseName)
                     } catch (e: IOException) {
-                        Log.e(
+                        Log.error(
                             TAG, "Database " + databaseName
                                     + " does not exist and there is no Original Version in Asset dir"
                         )
                     }
                 }
-                Log.i(TAG, "Try to create instance of database ($databaseName)")
+                Log.info("Try to create instance of database ($databaseName)")
                 instance = DatabaseAdapter(
                     context, databaseName,
                     null, DATABASE_VERSION
                 )
                 myDb = instance.getWritableDatabase()
-                Log.i(TAG, "instance of database ($databaseName) created !")
+                Log.info("instance of database ($databaseName) created !")
             }
         }
 
@@ -134,8 +135,8 @@ class DatabaseAdapter : SQLiteOpenHelper {
 
             // Path to the just created empty db
             val outFileName = getDatabasePath(aContext, databaseName)
-            Log.i(
-                TAG, "Check if create dir : " + DB_PATH_PREFIX
+            Log.info(
+                "Check if create dir : " + DB_PATH_PREFIX
                         + aContext.getPackageName() + DB_PATH_SUFFIX
             )
 
@@ -145,7 +146,7 @@ class DatabaseAdapter : SQLiteOpenHelper {
                     .toString() + DB_PATH_SUFFIX
             )
             if (!f.exists()) f.mkdir()
-            Log.i(TAG, "Trying to copy local DB to : $outFileName")
+            Log.info("Trying to copy local DB to : $outFileName")
 
             // Open the empty db as the output stream                 
             val myOutput: OutputStream = FileOutputStream(outFileName)
@@ -160,7 +161,7 @@ class DatabaseAdapter : SQLiteOpenHelper {
             myOutput.flush()
             myOutput.close()
             myInput.close()
-            Log.i(TAG, "DB ($databaseName) copied!")
+            Log.info("DB ($databaseName) copied!")
         }
 
         /***
@@ -170,15 +171,15 @@ class DatabaseAdapter : SQLiteOpenHelper {
             var checkDB: SQLiteDatabase? = null
             try {
                 val myPath = getDatabasePath(aContext, databaseName)
-                Log.i(TAG, "Trying to connect to : $myPath")
+                Log.info("Trying to connect to : $myPath")
                 checkDB = SQLiteDatabase.openDatabase(
                     myPath, null,
                     SQLiteDatabase.OPEN_READONLY
                 )
-                Log.i(TAG, "Database $databaseName found!")
+                Log.info("Database $databaseName found!")
                 checkDB.close()
             } catch (e: SQLiteException) {
-                Log.i(TAG, "Database $databaseName does not exist!")
+                Log.info("Database $databaseName does not exist!")
             }
             return if (checkDB != null) true else false
         }
