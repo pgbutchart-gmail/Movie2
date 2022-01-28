@@ -1,6 +1,9 @@
 package com.team1.trivia
 
-import android.content.Intent
+import java.awt.Color
+import javax.swing.text.StyleConstants.Orientation
+import javax.swing.text.html.ImageView
+
 
 class SplashActivity : TriviaActivity() {
     /** Called when the activity is first created.  */
@@ -12,6 +15,10 @@ class SplashActivity : TriviaActivity() {
         this.getWindow().setBackgroundDrawable(grad)
         setContentView(R.layout.splash)
         startAnimating()
+    }
+
+    private fun intArrayOf(elements: Color?, elements1: Color?): IntArray {
+        TODO("Not yet implemented")
     }
 
     /**

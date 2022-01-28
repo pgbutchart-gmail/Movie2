@@ -1,19 +1,5 @@
 package com.team1.trivia
 
-import com.team1.trivia.QueryBuilder
-import com.team1.trivia.DatabaseAdapter
-import com.team1.trivia.TriviaActivity
-import SharedPreferences.Editor
-import com.team1.trivia.GameActivity
-import com.team1.trivia.QuizQuestion
-import com.team1.trivia.ScoringActivity
-import java.io.File
-import java.io.BufferedOutputStream
-import java.io.FileOutputStream
-import com.team1.trivia.OpeningActivity
-import java.lang.StringBuffer
-import kotlin.Throws
-import java.io.IOException
 import java.util.*
 
 class QueryBuilder : TriviaActivity() {
@@ -31,7 +17,7 @@ class QueryBuilder : TriviaActivity() {
     // Set up the WHERE clause for the categories
     fun categories(): String? {
         var catFilter = ""
-        for (s in OpeningActivity.Companion.cat) {
+        for (s in OpeningActivity.Companion.cat!!) {
             if (s !== "Select All") {    // If the user selects 'Select All' we don't need to build
                 // our WHERE clause.
                 for (i in 1..3) {
@@ -59,7 +45,7 @@ class QueryBuilder : TriviaActivity() {
         sb.append(sqry)
 
         // Assemble the clause for the 6 random numbers
-        for (i in numbers) {
+        for (i in numbers!!) {
             rn = if (rn === "") {
                 "phrase._id=" + i.toString()
             } else {
@@ -82,7 +68,7 @@ class QueryBuilder : TriviaActivity() {
         for (i in 0..5) {
             // Add a random number between 0 and the number of rows in the Phrase table.
             val randomNumber = Random()
-            numbers.add(randomNumber.nextInt(count))
+            numbers?.add(count?.let { randomNumber.nextInt(it) })
         }
     }
 

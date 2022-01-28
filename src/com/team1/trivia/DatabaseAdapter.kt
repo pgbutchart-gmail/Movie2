@@ -1,9 +1,9 @@
 package com.team1.trivia
 
 import jdk.incubator.jpackage.internal.Log
-import sun.jvm.hotspot.HelloWorld.e
 import java.io.*
 import javax.naming.Context
+
 interface CursorFactory
 
 /***
@@ -29,8 +29,8 @@ class DatabaseAdapter : SQLiteOpenHelper {
         Log.info(TAG)
     }
 
-    internal constructor(c: Context?) : super(c, DATABASE_NAME, null, 0) {
-        context = c
+    internal constructor(c: Context?) : super() {
+        context = this
         Log.info("Create or Open database : $DATABASE_NAME")
     }
 
@@ -92,7 +92,7 @@ class DatabaseAdapter : SQLiteOpenHelper {
                         copyDataBase(context, databaseName)
                     } catch (e: IOException) {
                         Log.error(
-                            TAG, "Database " + databaseName
+                            "Database " + databaseName
                                     + " does not exist and there is no Original Version in Asset dir"
                         )
                     }

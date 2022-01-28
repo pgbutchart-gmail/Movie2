@@ -1,14 +1,18 @@
 package com.team1.trivia
 
-import android.app.AlertDialog
-import java.util.ArrayList
+import sun.jvm.hotspot.ui.Editor
+import java.awt.Button
+import java.awt.Dialog
+import javax.naming.Context
+import javax.swing.text.View
+import javax.swing.text.html.ImageView
 
 class OpeningActivity : TriviaActivity(), OnClickListener {
     var mPrefs: SharedPreferences? = null
 
     /** Called when the activity is first created.  */
     fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super(savedInstanceState)
         setContentView(R.layout.opening)
 
         // Activate check FirstRun
@@ -240,3 +244,7 @@ class OpeningActivity : TriviaActivity(), OnClickListener {
         var cat: MutableList<String?>? = ArrayList()
     }
 } // End OpeningActivity class
+
+private fun Button?.setOnClickListener(openingActivity: OpeningActivity) {
+
+}

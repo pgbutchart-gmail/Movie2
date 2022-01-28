@@ -1,9 +1,9 @@
 package com.team1.trivia
 
-import android.app.AlertDialog
+import sun.jvm.hotspot.ui.Editor
 import java.io.InputStream
-import java.lang.Exception
 import java.util.*
+import javax.swing.text.html.ListView
 
 class GameActivity : ListActivity() {
     private val titleAdapter: CursorAdapter? = null
@@ -30,7 +30,7 @@ class GameActivity : ListActivity() {
 
     // Called when the activity is first created.
     fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super(savedInstanceState)
         // copyDataBase();
 
         // Set view
